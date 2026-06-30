@@ -1002,10 +1002,7 @@ function sendWhatsApp() {
       return;
     }
     
-    if (linkGps === '') {
-      alert("Por favor, haz clic en el botón 'Obtener mi ubicación actual' para que el repartidor sepa llegar.");
-      return;
-    }
+    
   }
   
   // 3. Armar el encabezado del mensaje
@@ -1014,15 +1011,18 @@ function sendWhatsApp() {
   message += `🛵 *Entrega:* ${entrega}\n`;
   
   // Agregamos Dirección, Referencia (solo si escribió algo) y GPS al mensaje
+  // Agregamos Dirección, Referencia y GPS (solo si está presente)
   if (entrega === 'Envío a domicilio') {
     message += `📍 *Dirección escrita:* ${direccionManual}\n`;
     
-    // Si el cliente escribió una referencia, la sumamos
     if (referencia !== '') {
       message += `🏠 *Referencia:* ${referencia}\n`;
     }
     
-    message += `🗺️ *Mapa (GPS):* ${linkGps}\n`;
+    // Solo agregamos el mapa si el usuario presionó el botón
+    if (linkGps !== '') {
+      message += `🗺️ *Mapa (GPS):* ${linkGps}\n`;
+    }
   }
   
   message += `💳 *Pago:* ${pago}\n`;
