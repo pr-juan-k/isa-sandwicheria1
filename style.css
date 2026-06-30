@@ -123,11 +123,27 @@
 .animacion-parpadeo {
   animation: parpadeo-dos-veces 0.6s ease-in-out 2;
 }
+.header-subtitle a {
+    color: black !important;      /* Cambia el color a negro */
+    font-size: 1.1em;             /* Un poco más grande (10% más) */
+    text-decoration: none;        /* Opcional: quita el subrayado para que se vea más limpio */
+    font-weight: bold;            /* Opcional: le da un poquito más de peso para que resalte */
+}
 
 
 
+@keyframes pulso-boton-promo {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 191, 255, 0.7); }
+  70% { transform: scale(1.03); box-shadow: 0 0 0 10px rgba(0, 191, 255, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 191, 255, 0); }
+}
 
-
+.btn-parpadeo-continuo {
+  animation: pulso-boton-promo 1.5s infinite;
+  background-color: #ff0000 !important; /* Celeste llamativo */
+  color: #000 !important;
+  font-weight: bold;
+}
 
 
 
@@ -143,8 +159,8 @@
 
 :root {
   /* Colores principales - Verde agua */
-  --color-primary: #00b1ff;
-  --color-primary-dark: #479ea0;
+  --color-primary: #a62323;
+  --color-primary-dark: #361b1b;
   --color-primary-light: #5cc4b5;
   
   /* Fondos */

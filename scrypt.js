@@ -7,9 +7,32 @@ const WHATSAPP_NUMBER = '5493812234803'; // Formato: codigo pais + numero sin es
 // Datos del Menu
 // ========================================
 const menuData = {
+  promociones: {
+    name: 'Promociones',
+    image: 'images/promo.jpeg', // Cambia esta foto por una de una promo si tienes
+    hasVariety: false,
+    isPromo: true, // Esto le avisa al sistema que es un combo múltiple
+    products: {
+      promo3: {
+        name: 'Promo 3 Milanesas de Molida',
+        price: 12000,
+        promoCount: 3, // Cantidad de milanesas a preparar
+        ingredients: ['tomate', 'lechuga', 'mayonesa', 'mostaza','aji'],
+        image: 'images/milanesa.jpeg'
+      },
+      promo5: {
+        name: 'Promo 5 Milanesas de Molida',
+        price: 19000,
+        promoCount: 5, // Cantidad de milanesas a preparar
+        ingredients: ['tomate', 'lechuga', 'mayonesa', 'mostaza','aji'],
+        image: 'images/milanesa.jpeg'
+      }
+    }
+  }
+,
   milanesas: {
     name: 'Milanesas',
-    image: 'images/milanesa.jpg',
+    image: 'images/milanesa.jpeg',
     hasVariety: true,
     varieties: ['carne', 'molida'],
     products: {
@@ -17,28 +40,28 @@ const menuData = {
         comun: {
           name: 'Milanesa Comun',
           price: 8000,
-          ingredients: ['lechuga', 'tomate', 'mayonesa', 'mostaza'],
-          image: 'images/milanesa-comun.jpg'
+          ingredients: ['lechuga', 'tomate', 'mayonesa', 'mostaza','aji'],
+          image: 'images/milanesa.jpeg'
         },
         especial: {
           name: 'Milanesa Especial',
           price: 9000,
-          ingredients: ['lechuga', 'tomate', , 'mayonesa', 'mostaza' , 'huevo', 'papas fritas'],
-          image: 'images/milanesa-especial.jpg'
+          ingredients: ['lechuga', 'tomate', , 'mayonesa', 'mostaza' , 'huevo', 'papas fritas','aji'],
+          image: 'images/milanesa-p.jpeg'
         }
       },
       molida: {
         comun: {
           name: 'Milanesa Molida Comun',
           price: 3500,
-          ingredients: ['tomate', 'lechuga', 'mayonesa', 'mostaza'],
-          image: 'images/milanesa-comun.jpg'
+          ingredients: ['tomate', 'lechuga', 'mayonesa', 'mostaza','aji'],
+          image: 'images/milanesa.jpeg'
         },
         especial: {
           name: 'Milanesa Molida Especial',
           price: 4500,
-          ingredients: ['lechuga', 'tomate', 'huevo', 'mayonesa', 'mostaza', 'papas fritas'],
-          image: 'images/milanesa-especial.jpg'
+          ingredients: ['lechuga', 'tomate', 'huevo', 'mayonesa', 'mostaza', 'papas fritas','aji'],
+          image: 'images/milanesa-p.jpeg'
         }
       }
     }
@@ -78,20 +101,20 @@ const menuData = {
   },
   lomitos: {
     name: 'Lomitos',
-    image: 'images/lomito.jpg',
+    image: 'images/lomito.jpeg',
     hasVariety: false,
     products: {
       comun: {
         name: 'Lomito Comun',
         price: 10000,
-        ingredients: ['lechuga', 'tomate', 'mayonesa', 'mostaza'],
-        image: 'images/lomito.jpg'
+        ingredients: ['lechuga', 'tomate', 'mayonesa', 'mostaza','aji'],
+        image: 'images/lomito.jpeg'
       },
       especial: {
         name: 'Lomito Especial',
         price: 12000,
-        ingredients: ['lechuga', 'tomate', 'mayonesa', 'mostaza', 'huevo', 'papas fritas'],
-        image: 'images/lomito.jpg'
+        ingredients: ['lechuga', 'tomate', 'mayonesa', 'mostaza', 'huevo', 'papas fritas','aji'],
+        image: 'images/lomito-p.jpeg'
       }
     }
   },
@@ -106,20 +129,20 @@ const menuData = {
       comun: {
         name: 'Hamburguesa grande clasica',
         price: 5000,
-        ingredients: ['lechuga', 'tomate', 'mayonesa', 'mostaza'],
-        image: 'images/hamburguesa.jpg'
+        ingredients: ['lechuga', 'tomate', 'mayonesa', 'mostaza','aji'],
+        image: 'images/comun.jpeg'
       },
       especial: {
         name: 'Hamburguesa Especial',
         price: 6000,
-        ingredients: ['lechuga', 'tomate', 'mayonesa', 'mostaza', 'huevo', 'papas fritas'],
-        image: 'images/hamburguesa.jpg'
+        ingredients: ['lechuga', 'tomate', 'mayonesa', 'mostaza', 'huevo', 'papas fritas','aji'],
+        image: 'images/completa.jpeg'
       },
       hamburbumi: {
         name: 'Hamburguesa Especial completa',
         price: 6500,
-        ingredients: ['lechuga', 'tomate', 'mayonesa', 'mostaza',  'queso cheddar', 'huevo', 'papas fritas'],
-        image: 'images/hamburguesa.jpg'
+        ingredients: ['lechuga', 'tomate', 'mayonesa', 'mostaza',  'queso cheddar', 'huevo', 'papas fritas','aji'],
+        image: 'images/completa.jpeg'
       }
     }
   },
@@ -153,7 +176,8 @@ const ingredientImages = {
   'mayonesa': 'images/ingredientes/mayonesa.jpg',
   'mostaza': 'images/ingredientes/mostaza.jpg',
   'ketchup': 'images/ingredientes/ketchup.jpg',
-  'papas fritas': 'images/ingredientes/papas-fritas.jpg'
+  'papas fritas': 'images/ingredientes/papas-fritas.jpg',
+  'aji': 'images/ingredientes/aji.jpeg'
 };
 
 // ========================================
@@ -168,6 +192,9 @@ let extraMedallions = 0;
 let orderItems = [];
 let summaryExpanded = false;
 let selectedPapasAddon = false;
+// Variables para controlar las promociones
+let currentPromoCount = 1;
+let configuredPromoItems = [];
 
 // ========================================
 // Inicializacion
@@ -211,6 +238,7 @@ function renderMenuItems() {
 // ========================================
 function selectCategory(category) {
   selectedCategory = category;
+  selectedVariety = null; // LIMPIEZA DE SEGURIDAD
   const categoryData = menuData[category];
   
   if (categoryData.isBeverage) {
@@ -458,29 +486,32 @@ function renderCustomization(category, variety = null) {
 // ========================================
 function updateIngredientsForSelectedType() {
   const categoryData = menuData[selectedCategory];
-  let products;
-  
-  if (selectedVariety) {
-    products = categoryData.products[selectedVariety];
-  } else {
-    products = categoryData.products;
-  }
-  
+  let products = selectedVariety ? categoryData.products[selectedVariety] : categoryData.products;
   const product = products[selectedProductType];
   const ingredientsList = document.getElementById('ingredientsList');
   
   if (!ingredientsList || !product.ingredients) return;
   
-  // Reset removed ingredients when changing product type
   removedIngredients = [];
   
   let html = '';
+  
+  // 1. GENERACIÓN DE INGREDIENTES (Con integración de Ají desmarcado)
   product.ingredients.forEach(ingredient => {
     const imgSrc = ingredientImages[ingredient] || 'images/ingredientes/default.png';
+    
+    // Lógica Ají: Si es 'aji', el checkbox empieza desmarcado y lo sumamos a removedIngredients
+    const isAji = ingredient.toLowerCase() === 'aji';
+    const checkedAttribute = isAji ? '' : 'checked';
+    
+    if (isAji) {
+      removedIngredients.push(ingredient);
+    }
+    
     html += `
       <label class="ingredient-item">
         <input type="checkbox" class="ingredient-checkbox" 
-               checked onchange="toggleIngredient('${ingredient}', this.checked)">
+               ${checkedAttribute} onchange="toggleIngredient('${ingredient}', this.checked)">
         <img loading="lazy" src="${imgSrc}" alt="${ingredient}" class="ingredient-image">
         <span class="ingredient-name">${ingredient.charAt(0).toUpperCase() + ingredient.slice(1)}</span>
       </label>
@@ -488,6 +519,46 @@ function updateIngredientsForSelectedType() {
   });
   
   ingredientsList.innerHTML = html;
+
+  // 2. INTERFAZ VISUAL DE PROMOCIONES (Mantiene el contador y el botón parpadeante)
+  const titleEl = document.getElementById('customizationTitle');
+  const btn = document.querySelector('.add-to-order-section .btn-primary');
+  
+  if (categoryData.isPromo) {
+    if (titleEl) {
+      titleEl.innerHTML = `
+        <span style="display:block; font-size:1.3em; color:#00bfff; margin-bottom:5px;">
+          Milanesa ${currentPromoCount} de ${product.promoCount}
+        </span>
+        <span style="font-size:0.85em; color:#ffaa00; font-weight:normal;">
+          (Indique cómo va preparada esta milanesa 1 a 1)
+        </span>
+      `;
+    }
+    
+    if (btn) {
+      if (currentPromoCount < product.promoCount) {
+        btn.textContent = `Siguiente Milanesa (${currentPromoCount}/${product.promoCount})`;
+        btn.classList.add('btn-parpadeo-continuo');
+      } else {
+        btn.textContent = "Completada (Agregar al pedido)";
+        btn.classList.remove('btn-parpadeo-continuo');
+      }
+    }
+  } else {
+    // Si no es promo, diseño estándar
+    if (titleEl) {
+      let title = `Personaliza tu ${categoryData.name.toLowerCase()}`;
+      if (selectedVariety) {
+        title = `${categoryData.name} de ${selectedVariety.charAt(0).toUpperCase() + selectedVariety.slice(1)}`;
+      }
+      titleEl.textContent = title;
+    }
+    if (btn) {
+      btn.textContent = "Agregar al pedido";
+      btn.classList.remove('btn-parpadeo-continuo');
+    }
+  }
 }
 
 // ========================================
@@ -513,11 +584,21 @@ function selectProductType(type) {
 // Toggle de Ingredientes
 // ========================================
 function toggleIngredient(ingredient, isChecked) {
-  if (isChecked) {
-    removedIngredients = removedIngredients.filter(i => i !== ingredient);
-  } else {
-    if (!removedIngredients.includes(ingredient)) {
+  const isAji = ingredient.toLowerCase() === 'aji';
+  
+  if (isAji) {
+    // Si el ají está marcado, lo quitamos de 'removedIngredients' (o sea, lo añadimos al pedido)
+    if (isChecked) {
+      removedIngredients = removedIngredients.filter(i => i !== ingredient);
+    } else {
       removedIngredients.push(ingredient);
+    }
+  } else {
+    // Lógica normal para los otros ingredientes
+    if (!isChecked) {
+      removedIngredients.push(ingredient);
+    } else {
+      removedIngredients = removedIngredients.filter(i => i !== ingredient);
     }
   }
 }
@@ -576,15 +657,9 @@ function updateCurrentPrice() {
 // ========================================
 function addCustomProduct() {
   const categoryData = menuData[selectedCategory];
-  let products;
-  
-  if (selectedVariety) {
-    products = categoryData.products[selectedVariety];
-  } else {
-    products = categoryData.products;
-  }
-  
+  let products = selectedVariety ? categoryData.products[selectedVariety] : categoryData.products;
   const product = products[selectedProductType];
+  
   let price = product.price;
   let details = [];
   
@@ -593,10 +668,40 @@ function addCustomProduct() {
     details.push(`+${extraMedallions} medallon${extraMedallions > 1 ? 'es' : ''}`);
   }
   
-  if (removedIngredients.length > 0) {
-    details.push(`Sin: ${removedIngredients.join(', ')}`);
+// Filtramos para saber qué ingredientes quitar y cuáles agregar (como el ají)
+  const toRemove = removedIngredients.filter(i => i.toLowerCase() !== 'aji');
+  const toAdd = removedIngredients.filter(i => i.toLowerCase() === 'aji' && !removedIngredients.includes('aji'));
+  // En realidad, para el ají es más fácil ver si el usuario lo TIENE marcado:
+  const ajiMarcado = document.querySelector('input[onchange*="aji"]')?.checked;
+
+  if (toRemove.length > 0) {
+    details.push(`Sin: ${toRemove.join(', ')}`);
+  }
+  if (ajiMarcado) {
+    details.push(`Con Ají`);
+  }
+
+  // LÓGICA DE ALMACENAMIENTO PARA PROMOCIONES
+  if (categoryData.isPromo) {
+    // 1. Guardamos la configuración de esta milanesa actual
+    let descripcionItem = `Mila ${currentPromoCount}`;
+    if (details.length > 0) descripcionItem += ` (${details.join(' | ')})`;
+    configuredPromoItems.push(descripcionItem);
+
+    // 2. ¿Faltan milanesas?
+    if (currentPromoCount < product.promoCount) {
+      currentPromoCount++;
+      // Recargamos los ingredientes en pantalla para armar la siguiente
+      updateIngredientsForSelectedType();
+      // Salimos de la función sin agregar al carrito aún
+      return; 
+    } else {
+      // 3. Si ya completamos todas, armamos el detalle final usando un salto de línea
+      details = [configuredPromoItems.join('\n   ↳ ')];
+    }
   }
   
+  // Guardado final en el carrito
   const orderItem = {
     id: Date.now(),
     name: product.name,
@@ -611,7 +716,14 @@ function addCustomProduct() {
   
   document.getElementById('addedItemName').textContent = product.name + ' agregado al pedido';
   showStep('step4');
-  animarBotonOtroPedido();
+  
+  if (typeof animarBotonOtroPedido === 'function') {
+    animarBotonOtroPedido();
+  }
+
+  // Reiniciamos variables por si compra otra promo luego
+  currentPromoCount = 1;
+  configuredPromoItems = [];
 }
  
 // ========================================
@@ -726,16 +838,6 @@ function showStep(stepId) {
   document.getElementById(stepId).classList.add('active');
 }
 
-// ========================================
-// Navegacion
-// ========================================
-function showStep(stepId) {
-  document.querySelectorAll('.step').forEach(step => {
-    step.classList.remove('active');
-  });
-  document.getElementById(stepId).classList.add('active');
-}
-
 function goBack(toStep) {
   if (toStep === 1) {
     // Si volvemos al inicio de todo, limpiamos todas las variables
@@ -778,6 +880,9 @@ function resetSelections() {
   removedIngredients = [];
   extraMedallions = 0;
   selectedPapasAddon = false;
+  // Reiniciar promos
+  currentPromoCount = 1;
+  configuredPromoItems = [];
 }
 
 // ========================================
@@ -789,7 +894,6 @@ function updateOrderSummary() {
   const totalPrice = document.getElementById('totalPrice');
   const sendOrderBtn = document.getElementById('sendOrderBtn');
   
-  // NUEVO: Capturamos el contenedor principal del resumen
   const orderSummaryContainer = document.getElementById('orderSummary'); 
   
   itemCount.textContent = orderItems.length;
@@ -799,14 +903,10 @@ function updateOrderSummary() {
   
   sendOrderBtn.disabled = orderItems.length === 0;
   
-  // NUEVO: Lógica para activar/desactivar el brillo
-  // Lógica para activar/desactivar el brillo animado
   if (orderItems.length > 0) {
-    // Usamos la clase con la animación
-    orderSummaryContainer.classList.add('resaltado-activo-animado'); 
+    if(orderSummaryContainer) orderSummaryContainer.classList.add('resaltado-activo-animado'); 
   } else {
-    // Quitamos la clase con la animación
-    orderSummaryContainer.classList.remove('resaltado-activo-animado');
+    if(orderSummaryContainer) orderSummaryContainer.classList.remove('resaltado-activo-animado');
   }
   
   if (orderItems.length === 0) {
@@ -819,7 +919,7 @@ function updateOrderSummary() {
       <img loading="lazy" src="${item.image}" alt="${item.name}" class="summary-item-image">
       <div class="summary-item-info">
         <div class="summary-item-name">${item.name}</div>
-        ${item.details ? `<div class="summary-item-details">${item.details}</div>` : ''}
+        ${item.details ? `<div class="summary-item-details" style="white-space: pre-line;">${item.details.replace(/\n/g, '<br>')}</div>` : ''}
       </div>
       <div class="summary-item-price">$${item.price.toLocaleString()}</div>
       <button class="btn btn-danger" onclick="removeItem(${item.id})">
@@ -942,7 +1042,8 @@ function sendWhatsApp() {
     pizzas: [],
     empanadas: [],
     papas: [],
-    bebidas: []
+    bebidas: [],
+    promociones: [] // <-- ¡ESTO FALTABA Y CAUSABA EL ERROR!
   };
   
   orderItems.forEach(item => {
@@ -958,6 +1059,9 @@ function sendWhatsApp() {
       categories.papas.push(item);
     } else if (item.category === 'bebidas') {
       categories.bebidas.push(item);
+    }else if (item.category === 'promociones') { 
+      // <-- AQUÍ ATRAPAMOS LAS PROMOS
+      categories.promociones.push(item);
     }
   });
   
@@ -976,6 +1080,19 @@ function sendWhatsApp() {
     message += '🍖 *MILANESA NAPOLITANA:*\n';
     categories.milanesaNapolitana.forEach(item => {
       message += `• ${item.name} - $${item.price.toLocaleString()}\n`;
+    });
+    message += '\n';
+  }
+  // NUEVO: Bloque para imprimir las promociones en WhatsApp
+  if (categories.promociones.length > 0) {
+    message += '🎁 *PROMOCIONES:*\n';
+    categories.promociones.forEach(item => {
+      message += `• ${item.name} - $${item.price.toLocaleString()}\n`;
+      if (item.details) {
+        // Esto asegura que cada milanesa de la promo se vea en una línea nueva con una flechita
+        const detallesFormateados = item.details.replace(/\n/g, '\n   ↳ ');
+        message += `   ↳ ${detallesFormateados}\n`;
+      }
     });
     message += '\n';
   }
